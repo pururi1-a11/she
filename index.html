@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Данила & Ксюша - Наша История Любви</title>
-    <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
         :root {
@@ -28,6 +27,7 @@
         }
         .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
+        /* ===== FLOATING HEARTS ===== */
         .floating-hearts {
             position: fixed;
             top: 0; left: 0;
@@ -50,6 +50,7 @@
             100% { opacity: 0; transform: translateY(-100vh) rotate(360deg) scale(1); }
         }
 
+        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -133,6 +134,36 @@
             50% { transform: translateY(12px); }
         }
 
+        /* ===== MUSIC BUTTON ===== */
+        .music-btn {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(192,132,252,0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: pulse 2s infinite;
+        }
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(192,132,252,0.6);
+        }
+        .music-btn.playing {
+            animation: none;
+            background: linear-gradient(135deg, var(--gold), var(--accent3));
+        }
+
+        /* ===== TABS ===== */
         .tabs-container {
             position: sticky;
             top: 0;
@@ -175,6 +206,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* ===== SECTIONS ===== */
         section { padding: 3rem 0; }
         h2 {
             font-family: 'Cormorant Garamond', Georgia, serif;
@@ -194,6 +226,7 @@
             margin-bottom: 2.5rem;
         }
 
+        /* ===== TIMELINE ===== */
         .timeline { position: relative; padding-left: 2.5rem; }
         .timeline::before {
             content: '';
@@ -240,6 +273,7 @@
         .item p { color: #c4b5cb; }
         .item-emoji { font-size: 1.8rem; margin-bottom: 0.5rem; }
 
+        /* ===== REASONS ===== */
         .reasons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -264,6 +298,7 @@
         .reason-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
         .reason-card p { color: #c4b5cb; font-size: 0.95rem; }
 
+        /* ===== LETTERS ===== */
         .letter {
             background: linear-gradient(135deg, #1f1530, #1a1028);
             border: 1px solid rgba(244,114,182,0.15);
@@ -316,6 +351,7 @@
         }
         .letter-toggle:hover { color: var(--accent2); }
 
+        /* ===== PROMISES ===== */
         .promise-stack {
             display: flex;
             flex-direction: column;
@@ -346,6 +382,7 @@
         }
         .promise-text { font-size: 1.05rem; color: #c4b5cb; }
 
+        /* ===== DREAMS ===== */
         .dreams-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -378,32 +415,38 @@
             opacity: 0;
         }
 
+        /* ===== QUIZ - IMPROVED ===== */
         .quiz-card {
             background: var(--card);
             border-radius: 20px;
             padding: 2.5rem;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             text-align: center;
+            border: 1px solid rgba(192,132,252,0.1);
         }
         .quiz-question {
             font-family: 'Cormorant Garamond', Georgia, serif;
-            font-size: 1.6rem;
+            font-size: 2rem;
             margin-bottom: 2rem;
+            color: var(--text);
+            line-height: 1.4;
         }
         .quiz-options {
             display: flex;
             flex-direction: column;
-            gap: 0.8rem;
+            gap: 1rem;
         }
         .quiz-option {
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             background: rgba(192,132,252,0.06);
             border: 1px solid rgba(192,132,252,0.15);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: left;
+            font-size: 1.1rem;
+            color: var(--text);
         }
         .quiz-option:hover {
             background: rgba(192,132,252,0.15);
@@ -413,19 +456,30 @@
         .quiz-option.correct {
             background: rgba(74,222,128,0.15);
             border-color: #4ade80;
+            animation: bounceCorrect 0.5s ease;
         }
         .quiz-option.wrong {
             background: rgba(248,113,113,0.15);
             border-color: #f87171;
+            animation: shake 0.5s ease;
+        }
+        @keyframes bounceCorrect {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
         .quiz-progress {
             margin-top: 2rem;
-            font-size: 0.85rem;
+            font-size: 1rem;
             color: var(--muted);
         }
         .quiz-result { display: none; text-align: center; padding: 2rem; }
         .quiz-score {
-            font-size: 4rem;
+            font-size: 5rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
             -webkit-background-clip: text;
@@ -434,14 +488,18 @@
         }
         .quiz-restart {
             margin-top: 1.5rem;
-            padding: 0.8rem 2rem;
+            padding: 1rem 2.5rem;
             background: linear-gradient(135deg, var(--accent), var(--accent2));
             border: none;
             border-radius: 30px;
             color: white;
+            font-size: 1.1rem;
             cursor: pointer;
+            transition: transform 0.3s;
         }
+        .quiz-restart:hover { transform: scale(1.05); }
 
+        /* ===== LOVE METER ===== */
         .love-meter-wrapper {
             max-width: 500px;
             margin: 2rem auto;
@@ -476,6 +534,7 @@
             cursor: pointer;
         }
 
+        /* ===== GALLERY ===== */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -491,8 +550,13 @@
             justify-content: center;
             font-size: 3rem;
             border: 1px solid rgba(192,132,252,0.08);
+            cursor: pointer;
+            transition: transform 0.3s;
         }
+        .photo:hover { transform: scale(1.05); }
+        .photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 
+        /* ===== COUNTDOWN ===== */
         .countdown-grid {
             display: flex;
             gap: 1.5rem;
@@ -520,6 +584,7 @@
             text-transform: uppercase;
         }
 
+        /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 3rem 0;
@@ -534,47 +599,42 @@
             animation: pulse 2s infinite;
         }
 
+        /* ===== EMOJI FIX ===== */
+        .item-emoji, .reason-emoji, .dream-emoji, .hero-hearts, .big-heart, .floating-heart {
+            font-size: inherit;
+        }
+        .item-emoji { font-size: 1.8rem; }
+        .reason-emoji { font-size: 2rem; }
+        .dream-emoji { font-size: 2rem; }
+        .hero-hearts { font-size: 3rem; }
+        .big-heart { font-size: 3rem; }
+        .floating-heart { font-size: 1.2rem; }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .hero h1 { font-size: 2.8rem; }
             .timeline { padding-left: 1.5rem; }
             .item { padding: 1.2rem; margin-left: 0.8rem; }
+            .quiz-question { font-size: 1.5rem; }
+            .quiz-option { font-size: 1rem; }
+            .quiz-score { font-size: 4rem; }
         }
-        /* Фикс размера эмодзи */
-    .emoji, 
-    img.emoji,
-    span.emoji {
-        height: 1em !important;
-        width: 1em !important;
-        font-size: 1em !important;
-        display: inline-block;
-        margin: 0 0.1em;
-        vertical-align: -0.1em;
-    }
-
-    /* Для конкретных элементов с эмодзи */
-    .item-emoji,
-    .reason-emoji,
-    .dream-emoji,
-    .hero-hearts,
-    .big-heart,
-    .floating-heart {
-        font-size: inherit !important;
-    }
-
-    .item-emoji { font-size: 1.8rem !important; }
-    .reason-emoji { font-size: 2rem !important; }
-    .dream-emoji { font-size: 2rem !important; }
-    .hero-hearts { font-size: 3rem !important; }
-    .big-heart { font-size: 3rem !important; }
-    .floating-heart { font-size: 1.2rem !important; }
     </style>
 </head>
 <body>
+    <!-- FLOATING HEARTS -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
+    <!-- MUSIC BUTTON -->
+    <button class="music-btn" id="musicBtn" title="Включить музыку">&#127926;</button>
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_5c4a8c6c3c.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ===== HERO ===== -->
     <div class="hero">
-        <div class="hero-hearts">&#x1F495;&#x1F496;&#x1F497;</div>
-        <h1>Данила &amp; Ксюша</h1>
+        <div class="hero-hearts">&#128149;&#128150;&#128151;</div>
+        <h1>Данила & Ксюша</h1>
         <p class="subtitle">Наша история началась <strong>20 апреля 2022 года</strong> и с тех пор каждый день наполнен любовью, смехом и счастьем.</p>
         <div class="love-counter">
             <div class="counter-item">
@@ -594,9 +654,10 @@
                 <div class="counter-label">поцелуев</div>
             </div>
         </div>
-        <div class="scroll-hint" onclick="document.querySelector('.tabs-container').scrollIntoView({behavior:'smooth'})">&#x2B07;</div>
+        <div class="scroll-hint" onclick="document.querySelector('.tabs-container').scrollIntoView({behavior:'smooth'})">&#11015;</div>
     </div>
 
+    <!-- ===== TABS ===== -->
     <div class="tabs-container">
         <div class="tabs">
             <button class="tab-btn active" data-tab="timeline">Наш путь</button>
@@ -610,73 +671,74 @@
     </div>
 
     <div class="container">
+        <!-- ===== TAB: TIMELINE ===== -->
         <div class="tab-content active" id="tab-timeline">
             <section>
                 <h2><span>Наш Путь</span></h2>
                 <p class="section-subtitle">Каждый момент с тобой - это маленькое чудо</p>
                 <div class="timeline">
                     <div class="item">
-                        <div class="item-emoji">&#x2728;&#x1F338;</div>
+                        <div class="item-emoji">&#10024;&#127792;</div>
                         <div class="date">20 апреля 2022</div>
                         <h3>Начало нашей истории</h3>
-                        <p>Этот день изменил всё. Когда все таки наши взгляды встретились(не около машины, а у полины уже), весь мир словно замер. Ты улыбнулась - и моё сердце навсегда стало твоим. Я до сих пор помню этот момент, как будто это было вчера.</p>
+                        <p>Этот день изменил всё. Когда наши взгляды встретились (не около машины, а у Полины уже), весь мир словно замер. Ты улыбнулась - и моё сердце навсегда стало твоим. Я до сих пор помню этот момент, как будто это было вчера.</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F98B;&#x2764;</div>
+                        <div class="item-emoji">&#129403;&#10084;</div>
                         <div class="date">Май 2022</div>
                         <h3>Первые бабочки</h3>
                         <p>Помнишь, как мы сидели у меня и не хотели прощаться? Каждое сообщение от тебя заставляло сердце биться быстрее. Я засыпал и просыпался с мыслями о тебе. Это было волшебное время!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x2600;&#x1F30A;</div>
+                        <div class="item-emoji">&#9728;&#127754;</div>
                         <div class="date">Лето 2022</div>
                         <h3>Наше первое лето</h3>
                         <p>Тёплые вечера, прогулки до рассвета, мороженое на двоих. Это было лето, когда я понял - ты и есть моё счастье. И знаешь что? Я был прав!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F342;&#x2615;</div>
+                        <div class="item-emoji">&#127810;&#9749;</div>
                         <div class="date">Осень 2022</div>
                         <h3>Вместе теплее</h3>
-                        <p>Осень стала уютной с тобой.Ты - мой самый тёплый свитер в самый холодный день. И кстати, ты выглядишь в миллион раз лучше любого свитера!</p>
+                        <p>Осень стала уютной с тобой. Ты - мой самый тёплый свитер в самый холодный день. И кстати, ты выглядишь в миллион раз лучше любого свитера!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x2744;&#x1F384;</div>
+                        <div class="item-emoji">&#10052;&#127876;</div>
                         <div class="date">Зима 2022-2023</div>
                         <h3>Первый Новый год вместе</h3>
                         <p>Загадали одно и то же желание - быть вместе всегда. Снежинки кружились, а мы стояли обнявшись, и весь мир был только наш. Это был самый романтичный момент в моей жизни!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F389;&#x1F495;</div>
+                        <div class="item-emoji">&#127881;&#128149;</div>
                         <div class="date">20 апреля 2023</div>
                         <h3>Первая годовщина</h3>
                         <p>Целый год любви, смеха, поддержки и нежности. Ты доказала мне, что настоящая любовь существует. И она стала только крепче. Спасибо, что ты есть!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F30D;&#x2708;</div>
+                        <div class="item-emoji">&#127757;&#9992;</div>
                         <div class="date">Лето 2023</div>
                         <h3>Наши приключения</h3>
                         <p>Вместе с тобой даже обычный день превращается в приключение. Мы исследовали новые места и создавали воспоминания, которые будем хранить вечно. С тобой не бывает скучно!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x2744;&#x2728;</div>
+                        <div class="item-emoji">&#10052;&#10024;</div>
                         <div class="date">Зима 2023-2024</div>
                         <h3>Ещё одна волшебная зима</h3>
                         <p>С каждым днём я люблю тебя всё сильнее. Наши зимние вечера - это маленький рай на земле, где есть только ты и я. И я бы не променял это ни на что!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F496;&#x1F497;</div>
+                        <div class="item-emoji">&#128150;&#128151;</div>
                         <div class="date">20 апреля 2024</div>
                         <h3>Два года вместе</h3>
                         <p>Два года - а кажется, будто вся жизнь. И одновременно - как один прекрасный миг. Ты - мой самый лучший выбор. И я сделаю этот выбор ещё миллион раз!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F31F;&#x1F4AB;</div>
+                        <div class="item-emoji">&#127775;&#128123;</div>
                         <div class="date">2025-2026</div>
                         <h3>Растём вместе</h3>
-                        <p>Сначала отдаллись, были взлёты и падения, но я считаю, что сы становимся ещё ближе, ещё роднее. Каждый день я благодарю судьбу за то, что она подарила мне тебя - самого прекрасного человека на свете. Ты делаешь меня лучше!</p>
+                        <p>Сначала отдалились, были взлёты и падения, но я считаю, что мы становимся ещё ближе, ещё роднее. Каждый день я благодарю судьбу за то, что она подарила мне тебя - самого прекрасного человека на свете. Ты делаешь меня лучше!</p>
                     </div>
                     <div class="item">
-                        <div class="item-emoji">&#x1F495;&#x2728;</div>
+                        <div class="item-emoji">&#128149;&#10024;</div>
                         <div class="date">Сегодня и всегда</div>
                         <h3>Наше будущее</h3>
                         <p>Впереди нас ждёт целая жизнь вместе. И я хочу провести каждую её секунду рядом с тобой, моя Ксюша. Ты - мой дом, моя радость, моя вселенная. Я люблю тебя больше, чем можно выразить словами!</p>
@@ -685,58 +747,59 @@
             </section>
         </div>
 
+        <!-- ===== TAB: REASONS ===== -->
         <div class="tab-content" id="tab-reasons">
             <section>
                 <h2><span>Почему ты - моё всё</span></h2>
                 <p class="section-subtitle">Миллион причин, почему я люблю тебя, Ксюша</p>
                 <div class="reasons-grid">
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F60A;&#x2728;</div>
+                        <div class="reason-emoji">&#128522;&#10024;</div>
                         <h3>Твоя улыбка</h3>
                         <p>Когда ты улыбаешься, весь мир становится ярче. Твоя улыбка - это моё лекарство от всего плохого. Она способна осветить даже самый пасмурный день!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F917;&#x1F495;</div>
+                        <div class="reason-emoji">&#129295;&#128149;</div>
                         <h3>Твои объятия</h3>
                         <p>В твоих объятиях я чувствую себя дома. Нет места на земле, где бы мне было так спокойно и тепло. Это лучшее место во вселенной!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F602;&#x1F3B5;</div>
+                        <div class="reason-emoji">&#128514;&#127909;</div>
                         <h3>Твой смех</h3>
                         <p>Твой смех - это самая красивая мелодия, которую я когда-либо слышал. Я готов делать что угодно, лишь бы ты смеялась. Твой смех заразителен!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F496;&#x1F31F;</div>
+                        <div class="reason-emoji">&#128150;&#127775;</div>
                         <h3>Твоя доброта</h3>
                         <p>Ты заботишься обо всех вокруг с такой нежностью. Твоё сердце - самое большое и доброе в мире. Это одна из причин, почему я так тебя люблю!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F4AA;&#x2728;</div>
+                        <div class="reason-emoji">&#128170;&#10024;</div>
                         <h3>Твоя сила</h3>
                         <p>Ты сильнее, чем думаешь. Ты вдохновляешь меня быть лучше каждый день. Рядом с тобой я хочу свернуть горы. Ты моя муза!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F497;&#x1F338;</div>
+                        <div class="reason-emoji">&#128151;&#127792;</div>
                         <h3>Твоя нежность</h3>
                         <p>Ты умеешь быть такой нежной и ласковой. Каждое твоё прикосновение - это маленькое чудо. Это сводит меня с ума!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F3E0;&#x1F495;</div>
+                        <div class="reason-emoji">&#127968;&#128149;</div>
                         <h3>Ты - мой дом</h3>
                         <p>Неважно где я, если ты рядом - я дома. Ты - моё место силы, моя тихая гавань. С тобой я чувствую себя защищённым.</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F308;&#x2728;</div>
+                        <div class="reason-emoji">&#127752;&#10024;</div>
                         <h3>Ты делаешь мир красивее</h3>
                         <p>С тобой даже серый день становится ярким. Ты раскрашиваешь мою жизнь самыми тёплыми красками. Ты - мой личный художник счастья!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F60D;&#x1F4AB;</div>
+                        <div class="reason-emoji">&#128525;&#128123;</div>
                         <h3>Твои глаза</h3>
                         <p>В твоих глазах я могу утонуть. Они такие глубокие и красивые, что я забываю обо всём на свете. Это мой любимый вид!</p>
                     </div>
                     <div class="reason-card">
-                        <div class="reason-emoji">&#x1F493;&#x1F525;</div>
+                        <div class="reason-emoji">&#128147;&#128293;</div>
                         <h3>Ты сводишь меня с ума</h3>
                         <p>В самом лучшем смысле! Ты заставляешь моё сердце биться чаще одним только своим присутствием. Это магия!</p>
                     </div>
@@ -744,6 +807,7 @@
             </section>
         </div>
 
+        <!-- ===== TAB: LETTERS ===== -->
         <div class="tab-content" id="tab-letters">
             <section>
                 <h2><span>Письма любви</span></h2>
@@ -757,11 +821,10 @@
                             Помнишь, как всё начиналось? 20 апреля 2022 года мой мир перевернулся. Я не знал тогда, что встречу человека, который станет для меня всем. Ты стала моим солнцем, моей луной, моими звёздами - всей моей вселенной.<br><br>
                             Спасибо тебе за каждый день рядом. За твой смех, за твою заботу, за то, что ты просто есть. Ты - моё самое большое счастье и самый ценный подарок судьбы.<br><br>
                             Я обещаю любить тебя каждый день - сегодня, завтра и всегда. Ты - моя навсегда.<br><br>
-                            Твой &#x1F495;
+                            Твой &#128149;
                         </div>
                         <button class="letter-toggle" onclick="toggleLetter('letter1', this)">Прочитать полностью...</button>
                     </div>
-
                     <div class="letter">
                         <div class="letter-from">Маленькое признание</div>
                         <div class="letter-text letter-hidden" id="letter2">
@@ -769,11 +832,10 @@
                             Из всех людей на планете мы нашли друг друга. Из миллиардов людей - ты и я. Разве это не чудо?<br><br>
                             Каждый раз, когда ты берёшь меня за руку, я чувствую, как весь мир становится правильным. Каждый раз, когда ты смотришь мне в глаза, я теряюсь в них - и нахожу себя одновременно.<br><br>
                             Ты научила меня, что любовь - это не только бабочки в животе. Это спокойствие, когда ты рядом. Это уверенность, что вместе мы справимся с чем угодно. Это тепло, которое не заканчивается.<br><br>
-                            Я люблю тебя больше, чем слова могут выразить. Но я буду стараться показывать это каждый день. &#x1F496;
+                            Я люблю тебя больше, чем слова могут выразить. Но я буду стараться показывать это каждый день. &#128150;
                         </div>
                         <button class="letter-toggle" onclick="toggleLetter('letter2', this)">Прочитать полностью...</button>
                     </div>
-
                     <div class="letter">
                         <div class="letter-from">10 вещей, которые я никогда не скажу вслух</div>
                         <div class="letter-text letter-hidden" id="letter3">
@@ -786,7 +848,7 @@
                             7. Я рассказываю о тебе всем своим друзьям<br>
                             8. Каждая песня про любовь - это про нас<br>
                             9. Я не могу представить свою жизнь без тебя<br>
-                            10. Ты - лучшее, что случилось в моей жизни &#x1F495;
+                            10. Ты - лучшее, что случилось в моей жизни &#128149;
                         </div>
                         <button class="letter-toggle" onclick="toggleLetter('letter3', this)">Прочитать полностью...</button>
                     </div>
@@ -794,98 +856,100 @@
             </section>
         </div>
 
+        <!-- ===== TAB: PROMISES ===== -->
         <div class="tab-content" id="tab-promises">
             <section>
                 <h2><span>Мои обещания тебе</span></h2>
                 <p class="section-subtitle">Нажми на обещание, чтобы оставить сердечко</p>
                 <div class="promise-stack">
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю любить тебя каждый день сильнее, чем вчера</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю всегда быть рядом - и в радости, и в трудные моменты</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю делать тебя счастливой каждый день</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю никогда не ложиться спать в ссоре</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю слушать тебя и слышать по-настоящему</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю защищать тебя и нашу любовь</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю говорить "люблю" каждый день</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю создать с тобой самую красивую историю любви</span>
                     </div>
                     <div class="promise-card" onclick="togglePromise(this)">
-                        <span class="promise-heart">&#x1F497;</span>
+                        <span class="promise-heart">&#128151;</span>
                         <span class="promise-text">Я обещаю - ты навсегда будешь моей Ксюшей</span>
                     </div>
                 </div>
             </section>
         </div>
 
+        <!-- ===== TAB: DREAMS ===== -->
         <div class="tab-content" id="tab-dreams">
             <section>
                 <h2><span>Наши мечты</span></h2>
                 <p class="section-subtitle">Нажми на мечту, когда она сбудется</p>
                 <div class="dreams-grid">
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F305;&#x1F30A;</div>
+                        <div class="dream-emoji">&#127749;&#127754;</div>
                         <div class="dream-text">Встретить рассвет на море</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F5FC;&#x2764;</div>
+                        <div class="dream-emoji">&#128468;&#10084;</div>
                         <div class="dream-text">Побывать в Париже</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F3E0;&#x1F495;</div>
+                        <div class="dream-emoji">&#127968;&#128149;</div>
                         <div class="dream-text">Наш уютный дом</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F436;&#x1F43E;</div>
+                        <div class="dream-emoji">&#128054;&#128062;</div>
                         <div class="dream-text">Завести животное</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x2728;&#x1F30C;</div>
+                        <div class="dream-emoji">&#10024;&#127756;</div>
                         <div class="dream-text">Увидеть северное сияние</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F697;&#x1F30D;</div>
+                        <div class="dream-emoji">&#128663;&#127757;</div>
                         <div class="dream-text">Поехать в путешествие без плана</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F4F8;&#x1F495;</div>
+                        <div class="dream-emoji">&#128248;&#128149;</div>
                         <div class="dream-text">Сделать 1000 совместных фото</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F468;&#x200D;&#x1F469;&#x200D;&#x1F467;&#x200D;&#x1F466;</div>
+                        <div class="dream-emoji">&#128104;&#8205;&#128105;&#8205;&#128103;&#8205;&#128106;</div>
                         <div class="dream-text">Создать большую семью</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
                     <div class="dream-card" onclick="toggleDream(this)">
-                        <div class="dream-emoji">&#x1F474;&#x200D;&#x2642;&#x1F475;&#x200D;&#x2640;</div>
+                        <div class="dream-emoji">&#128116;&#8205;&#9794;&#128117;&#8205;&#9792;</div>
                         <div class="dream-text">Состариться вместе</div>
                         <div class="dream-check">Сбылось!</div>
                     </div>
@@ -893,6 +957,7 @@
             </section>
         </div>
 
+        <!-- ===== TAB: QUIZ - IMPROVED ===== -->
         <div class="tab-content" id="tab-quiz">
             <section>
                 <h2><span>Викторина о нас</span></h2>
@@ -913,12 +978,13 @@
             </section>
         </div>
 
+        <!-- ===== TAB: ANNIVERSARY ===== -->
         <div class="tab-content" id="tab-anniversary">
             <section>
                 <h2><span>До следующей годовщины</span></h2>
                 <p class="section-subtitle">Обратный отсчёт до нашего особенного дня</p>
                 <div class="countdown-wrapper">
-                    <div class="countdown-title" id="anniversaryTitle">&#x1F389; Годовщина</div>
+                    <div class="countdown-title" id="anniversaryTitle">&#127881; Годовщина</div>
                     <div class="countdown-grid">
                         <div class="countdown-item">
                             <div class="countdown-value" id="cd-days">0</div>
@@ -938,33 +1004,53 @@
                         </div>
                     </div>
                 </div>
-
                 <div style="margin-top: 3rem;">
                     <h2><span>Наши моменты</span></h2>
                     <p class="section-subtitle">Фотографии, которые хранят наши воспоминания</p>
                     <div class="gallery">
-                        <div class="photo">&#x1F4F7;</div>
-                        <div class="photo">&#x1F4F7;</div>
-                        <div class="photo">&#x1F4F7;</div>
-                        <div class="photo">&#x1F4F7;</div>
-                        <div class="photo">&#x1F4F7;</div>
-                        <div class="photo">&#x1F4F7;</div>
+                        <div class="photo">&#128247;</div>
+                        <div class="photo">&#128247;</div>
+                        <div class="photo">&#128247;</div>
+                        <div class="photo">&#128247;</div>
+                        <div class="photo">&#128247;</div>
+                        <div class="photo">&#128247;</div>
                     </div>
                 </div>
             </section>
         </div>
 
+        <!-- ===== FOOTER ===== -->
         <footer>
-            <span class="big-heart">&#x1F495;</span>
-            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--accent2); margin-bottom: 0.5rem;">Данила &amp; Ксюша - навсегда</p>
+            <span class="big-heart">&#128149;</span>
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--accent2); margin-bottom: 0.5rem;">Данила & Ксюша - навсегда</p>
             <p>Сделано с бесконечной любовью | Вместе с <span id="start-date">20.04.2022</span></p>
             <p style="margin-top: 0.5rem; font-size: 0.8rem;">© <span id="year"></span> - Наша история продолжается...</p>
         </footer>
     </div>
 
     <script>
+        // ===== SOUND EFFECTS =====
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(freq, duration, type = 'sine', volume = 0.1) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.value = freq;
+            osc.type = type;
+            gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+        function playClick() { playSound(800, 0.1, 'sine', 0.05); }
+        function playCorrect() { playSound(600, 0.15, 'sine', 0.1); setTimeout(() => playSound(800, 0.15, 'sine', 0.1), 100); }
+        function playWrong() { playSound(200, 0.2, 'square', 0.08); }
+        function playHeart() { playSound(500, 0.2, 'sine', 0.07); }
+
+        // ===== FLOATING HEARTS =====
         const heartsContainer = document.getElementById('floatingHearts');
-        const heartEmojis = ['&#x1F495;', '&#x1F496;', '&#x1F497;', '&#x1F493;', '&#x2764;', '&#x1F498;'];
+        const heartEmojis = ['&#128149;', '&#128150;', '&#128151;', '&#128147;', '&#10084;', '&#128152;'];
         function createHeart() {
             const heart = document.createElement('span');
             heart.className = 'floating-heart';
@@ -979,6 +1065,7 @@
         for (let i = 0; i < 15; i++) setTimeout(createHeart, i * 800);
         setInterval(createHeart, 2000);
 
+        // ===== LOVE COUNTER =====
         const startDate = new Date(2022, 3, 20);
         function updateCounter() {
             const now = new Date();
@@ -995,10 +1082,32 @@
         updateCounter();
         setInterval(updateCounter, 60000);
 
+        // ===== MUSIC BUTTON =====
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+        musicBtn.addEventListener('click', () => {
+            playClick();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.innerHTML = '&#127926;';
+                isPlaying = false;
+            } else {
+                bgMusic.play().catch(e => console.log('Autoplay blocked:', e));
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '&#128264;';
+                isPlaying = true;
+            }
+        });
+
+        // ===== TABS =====
         const tabBtns = document.querySelectorAll('.tab-btn');
         const tabContents = document.querySelectorAll('.tab-content');
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                playClick();
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
                 btn.classList.add('active');
@@ -1007,6 +1116,7 @@
             });
         });
 
+        // ===== SCROLL ANIMATIONS =====
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
@@ -1014,7 +1124,9 @@
         }, { threshold: 0.1 });
         document.querySelectorAll('.item').forEach(el => observer.observe(el));
 
+        // ===== LETTER TOGGLE =====
         function toggleLetter(id, btn) {
+            playClick();
             const el = document.getElementById(id);
             if (el.classList.contains('letter-hidden')) {
                 el.classList.remove('letter-hidden');
@@ -1025,23 +1137,32 @@
             }
         }
 
+        // ===== PROMISES =====
         function togglePromise(card) {
+            playHeart();
             card.classList.toggle('liked');
             const heart = card.querySelector('.promise-heart');
-            heart.innerHTML = card.classList.contains('liked') ? '&#x1F495;' : '&#x1F497;';
+            heart.innerHTML = card.classList.contains('liked') ? '&#128149;' : '&#128151;';
         }
 
+        // ===== DREAMS =====
         function toggleDream(card) {
+            playClick();
             card.classList.toggle('checked');
         }
 
+        // ===== QUIZ - ENHANCED =====
         const quizData = [
             { q: 'Когда мы начали встречаться?', options: ['14 февраля 2022', '20 апреля 2022', '1 мая 2022', '8 марта 2022'], correct: 1 },
             { q: 'Как зовут твою вторую половинку?', options: ['Даня', 'Данила', 'Дима', 'Денис'], correct: 1 },
             { q: 'Сколько месяцев мы уже вместе? (примерно)', options: ['Около 24', 'Около 36', 'Около 48', 'Около 12'], correct: 2 },
             { q: 'Что самое важное в отношениях?', options: ['Подарки', 'Доверие и любовь', 'Деньги', 'Общие друзья'], correct: 1 },
             { q: 'Какой наш девиз?', options: ['Каждый сам за себя', 'Вместе - навсегда', 'Потом разберёмся', 'Живём один раз'], correct: 1 },
-            { q: 'Что Данила обещает Ксюше?', options: ['Купить слона', 'Любить каждый день сильнее', 'Ничего', 'Всё вышеперечисленное'], correct: 1 }
+            { q: 'Что Данила обещает Ксюше?', options: ['Купить слона', 'Любить каждый день сильнее', 'Ничего', 'Всё вышеперечисленное'], correct: 1 },
+            { q: 'Где мы встретились впервые?', options: ['У машины', 'У Полины', 'В кафе', 'В парке'], correct: 1 },
+            { q: 'Что Ксюша любит больше всего?', options: ['Спать', 'Смеяться', 'Есть', 'Гулять'], correct: 1 },
+            { q: 'Какой наш любимый сезон?', options: ['Зима', 'Лето', 'Осень', 'Весна'], correct: 1 },
+            { q: 'Что Данила делает, когда скучает?', options: ['Пишет Ксюше', 'Смотрит сериалы', 'Играет в игры', 'Спит'], correct: 0 }
         ];
         let quizIndex = 0, quizScore = 0;
         function startQuiz() {
@@ -1070,8 +1191,14 @@
             opts.forEach((o, i) => {
                 o.disabled = true;
                 o.style.pointerEvents = 'none';
-                if (i === correct) o.classList.add('correct');
-                if (i === chosen && chosen !== correct) o.classList.add('wrong');
+                if (i === correct) {
+                    o.classList.add('correct');
+                    playCorrect();
+                }
+                if (i === chosen && chosen !== correct) {
+                    o.classList.add('wrong');
+                    playWrong();
+                }
             });
             if (chosen === correct) quizScore++;
             setTimeout(() => { quizIndex++; showQuestion(); }, 1200);
@@ -1081,19 +1208,33 @@
             const result = document.getElementById('quizResult');
             result.style.display = 'block';
             document.getElementById('quizScore').textContent = quizScore + '/' + quizData.length;
-            const messages = ['Нужно больше обниматься! &#x1F495;', 'Неплохо, но мы можем лучше! &#x1F60A;', 'Хороший результат! &#x1F44D;', 'Отличный результат! &#x1F389;', 'Почти идеально! &#x2728;', 'Потрясающе! &#x1F496;', 'ИДЕАЛЬНО! Мы созданы друг для друга! &#x1F495;&#x1F496;&#x1F497;'];
-            document.getElementById('quizMessage').textContent = messages[quizScore];
+            const messages = [
+                'Нужно больше обниматься! &#128149;',
+                'Неплохо, но мы можем лучше! &#128522;',
+                'Хороший результат! &#128077;',
+                'Отличный результат! &#127881;',
+                'Почти идеально! &#10024;',
+                'Потрясающе! &#128150;',
+                'ИДЕАЛЬНО! Мы созданы друг для друга! &#128149;&#128150;&#128151;',
+                'Ты знаешь нас лучше, чем мы сами! &#129392;',
+                'Эксперт по нашей любви! &#128158;',
+                'Божественный результат! &#127775;'
+            ];
+            document.getElementById('quizMessage').textContent = messages[quizScore] || messages[messages.length - 1];
+            playCorrect();
         }
         startQuiz();
 
+        // ===== LOVE METER =====
         const loveMessages = [
-            { pct: 100, text: '&#x1F495; Ошибка: любовь выходит за пределы шкалы!' },
-            { pct: 100, text: '&#x1F496; БЕСКОНЕЧНАЯ ЛЮБОВЬ! Шкала сломалась!' },
-            { pct: 100, text: '&#x1F497; Невозможно измерить - слишком много любви!' },
-            { pct: 100, text: '&#x2728; Результат: БЕЗГРАНИЧНО! Вселенная завидует!' },
-            { pct: 100, text: '&#x1F493; Уровень любви: МАКСИМУМ и даже больше!' },
+            { pct: 100, text: '&#128149; Ошибка: любовь выходит за пределы шкалы!' },
+            { pct: 100, text: '&#128150; БЕСКОНЕЧНАЯ ЛЮБОВЬ! Шкала сломалась!' },
+            { pct: 100, text: '&#128151; Невозможно измерить - слишком много любви!' },
+            { pct: 100, text: '&#10024; Результат: БЕЗГРАНИЧНО! Вселенная завидует!' },
+            { pct: 100, text: '&#128147; Уровень любви: МАКСИМУМ и даже больше!' },
         ];
         function measureLove() {
+            playClick();
             const fill = document.getElementById('loveFill');
             const text = document.getElementById('loveText');
             fill.style.width = '0%';
@@ -1101,10 +1242,11 @@
             setTimeout(() => {
                 const msg = loveMessages[Math.floor(Math.random() * loveMessages.length)];
                 fill.style.width = msg.pct + '%';
-                setTimeout(() => { text.textContent = msg.text; }, 1000);
+                setTimeout(() => { text.textContent = msg.text; playHeart(); }, 1000);
             }, 500);
         }
 
+        // ===== COUNTDOWN =====
         function updateCountdown() {
             const now = new Date();
             let nextAnniversary = new Date(now.getFullYear(), 3, 20);
@@ -1120,16 +1262,19 @@
             document.getElementById('cd-hours').textContent = hours;
             document.getElementById('cd-minutes').textContent = minutes;
             document.getElementById('cd-seconds').textContent = seconds;
-            document.getElementById('anniversaryTitle').textContent = '&#x1F389; До ' + yearsTogether + '-й годовщины';
+            document.getElementById('anniversaryTitle').textContent = '&#127881; До ' + yearsTogether + '-й годовщины';
         }
         updateCountdown();
         setInterval(updateCountdown, 1000);
 
+        // ===== YEAR =====
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // ===== CLICK HEARTS EFFECT =====
         document.addEventListener('click', (e) => {
+            if (e.target.closest('button') || e.target.closest('.quiz-option')) return;
             const heart = document.createElement('span');
-            const hearts = ['&#x1F495;', '&#x1F496;', '&#x1F497;', '&#x2764;'];
+            const hearts = ['&#128149;', '&#128150;', '&#128151;', '&#10084;'];
             heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
             heart.style.cssText = 'position: fixed; left: ' + e.clientX + 'px; top: ' + e.clientY + 'px; pointer-events: none; z-index: 9999; font-size: 1.5rem; animation: clickHeart 1s ease-out forwards;';
             document.body.appendChild(heart);
@@ -1139,10 +1284,13 @@
         clickStyle.textContent = '@keyframes clickHeart { 0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); } 100% { opacity: 0; transform: translate(-50%, -100px) scale(1.5) rotate(20deg); } }';
         document.head.appendChild(clickStyle);
 
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof twemoji !== 'undefined') {
-                twemoji.parse(document.body, { folder: 'svg', ext: '.svg' });
-            }
+        // ===== PHOTO CLICK =====
+        document.querySelectorAll('.photo').forEach(photo => {
+            photo.addEventListener('click', () => {
+                playClick();
+                photo.style.transform = 'scale(1.1)';
+                setTimeout(() => photo.style.transform = '', 200);
+            });
         });
     </script>
 </body>
