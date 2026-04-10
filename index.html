@@ -1130,26 +1130,31 @@
         const musicBtn = document.getElementById('musicBtn');
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
-        musicBtn.addEventListener('click', async () => {
+
+        musicBtn.addEventListener('click', () => {
             playSoftClick();
-            if (audioCtx.state === 'suspended') await audioCtx.resume();
+    
             if (isPlaying) {
                 bgMusic.pause();
                 musicBtn.classList.remove('playing');
                 musicBtn.innerHTML = '&#127926;';
                 isPlaying = false;
             } else {
-                try {
-                    await bgMusic.play();
+                bgMusic.play().then(() => {
                     musicBtn.classList.add('playing');
                     musicBtn.innerHTML = '&#128264;';
                     isPlaying = true;
-                } catch(e) {
-                    console.log('Autoplay blocked:', e);
-                    alert('Нажмите кнопку ещё раз, чтобы включить музыку');
-                }
+                }).catch(error => {
+                    console.log('Music play failed:', error);
+                    alert('Нажми кнопку ещё раз');
+                });
             }
         });
+
+// Обработка ошибок загрузки
+bgMusic.addEventListener('error', (e) => {
+    console.error('Music load error:', e);
+});
 
         // ===== TABS =====
         const tabBtns = document.querySelectorAll('.tab-btn');
