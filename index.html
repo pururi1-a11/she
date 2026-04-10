@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данила & Ксюша — Наша История Любви</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --bg: #0f0a1a;
+            --text: #f8fafc;
+            --accent: #c084fc;
+            --accent2: #f472b6;
+            --accent3: #fb7185;
+            --card: #1a1028;
+            --card-hover: #231538;
+            --muted: #a1919e;
+            --gold: #fbbf24;
+            --soft-pink: rgba(244,114,182,0.12);
+            --soft-purple: rgba(192,132,252,0.12);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* ===== FLOATING HEARTS ===== */
+        .floating-hearts {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .floating-heart {
+            position: absolute;
+            bottom: -40px;
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(0) rotate(0deg) scale(0.5); }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-100vh) rotate(360deg) scale(1); }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-hearts {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        .hero h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: var(--muted);
+            max-width: 600px;
+            margin-bottom: 0.5rem;
+        }
+        .hero .love-counter {
+            display: inline-flex;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .counter-item {
+            text-align: center;
+            background: var(--card);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(192,132,252,0.15);
+            min-width: 90px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .counter-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(192,132,252,0.2);
+        }
+        .counter-number {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .counter-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .scroll-hint {
+            margin-top: 3rem;
+            animation: bounce 2s infinite;
+            color: var(--muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .scroll-hint:hover { color: var(--accent); }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(12px); }
+        }
+
+        /* ===== TABS ===== */
+        .tabs-container {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(15,10,26,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(192,132,252,0.1);
+            padding: 0;
+            margin-bottom: 2rem;
+        }
+        .tabs {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab-btn {
+            flex-shrink: 0;
+            padding: 1rem 1.2rem;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 2px solid transparent;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== SECTIONS ===== */
+        section { padding: 3rem 0; }
+        h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2.4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        h2 span {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .section-subtitle {
+            text-align: center;
+            color: var(--muted);
+            margin-bottom: 2.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* ===== TIMELINE ===== */
+        .timeline { position: relative; padding-left: 2.5rem; }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), var(--accent2), var(--accent3));
+            border-radius: 2px;
+        }
+        .item {
+            position: relative;
+            margin-bottom: 2.5rem;
+            padding: 1.5rem;
+            background: var(--card);
+            border-radius: 16px;
+            margin-left: 1.2rem;
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(192,132,252,0.08);
+        }
+        .item:hover {
+            background: var(--card-hover);
+            border-color: rgba(192,132,252,0.2);
+            box-shadow: 0 8px 40px rgba(192,132,252,0.08);
+        }
+        .item.visible { opacity: 1; transform: translateY(0); }
+        .item::before {
+            content: '';
+            position: absolute;
+            left: -2rem; top: 1.8rem;
+            width: 14px; height: 14px;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border-radius: 50%;
+            border: 3px solid var(--bg);
+            box-shadow: 0 0 12px rgba(192,132,252,0.4);
+        }
+        .date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .item h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
+        .item p { color: #c4b5cb; line-height: 1.8; }
+        .item-emoji { font-size: 1.8rem; margin-bottom: 0.5rem; }
+
+        /* ===== REASONS ===== */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.2rem;
+            margin-top: 2rem;
+        }
+        .reason-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.8rem;
+            border: 1px solid rgba(192,132,252,0.08);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--soft-purple), var(--soft-pink));
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .reason-card:hover::before { opacity: 1; }
+        .reason-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(192,132,252,0.15);
+            border-color: rgba(192,132,252,0.3);
+        }
+        .reason-card > * { position: relative; z-index: 1; }
+        .reason-emoji { font-size: 2.5rem; margin-bottom: 0.8rem; }
+        .reason-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .reason-card p { color: #c4b5cb; font-size: 0.95rem; }
+
+        /* ===== LOVE LETTERS ===== */
+        .letter-wrapper {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+        .letter {
+            background: linear-gradient(135deg, #1f1530, #1a1028);
+            border: 1px solid rgba(244,114,182,0.15);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .letter::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+        }
+        .letter-from {
+            font-weight: 600;
+            color: var(--accent2);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .letter-text {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #ddd0e0;
+            font-style: italic;
+        }
+        .letter-hidden {
+            max-height: 120px;
+            overflow: hidden;
+            position: relative;
+        }
+        .letter-hidden::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 60px;
+            background: linear-gradient(transparent, #1a1028);
+        }
+        .letter-toggle {
+            display: inline-block;
+            margin-top: 1rem;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+            border: none;
+            background: none;
+            font-family: 'Inter', sans-serif;
+        }
+        .letter-toggle:hover { color: var(--accent2); }
+
+        /* ===== QUIZ ===== */
+        .quiz-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 2.5rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            border: 1px solid rgba(192,132,252,0.1);
+        }
+        .quiz-question {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+        }
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .quiz-option {
+            padding: 1rem 1.5rem;
+            background: rgba(192,132,252,0.06);
+            border: 1px solid rgba(192,132,252,0.15);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: var(--text);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            text-align: left;
+        }
+        .quiz-option:hover {
+            background: rgba(192,132,252,0.15);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+        .quiz-option.correct {
+            background: rgba(74,222,128,0.15);
+            border-color: #4ade80;
+        }
+        .quiz-option.wrong {
+            background: rgba(248,113,113,0.15);
+            border-color: #f87171;
+        }
+        .quiz-progress {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        .quiz-result {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        .quiz-result h3 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .quiz-score {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .quiz-restart {
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .quiz-restart:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(192,132,252,0.3);
+        }
+
+        /* ===== WISHES / DREAMS ===== */
+        .dreams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+        .dream-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(192,132,252,0.08);
+            cursor: pointer;
+            transition: all 0.4s;
+            user-select: none;
+        }
+        .dream-card:hover {
+            transform: translateY(-4px) rotate(-1deg);
+            box-shadow: 0 10px 30px rgba(192,132,252,0.12);
+        }
+        .dream-card.checked {
+            background: linear-gradient(135deg, rgba(192,132,252,0.15), rgba(244,114,182,0.15));
+            border-color: var(--accent);
+        }
+        .dream-card.checked .dream-check { opacity: 1; }
+        .dream-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .dream-text { font-size: 0.95rem; color: #c4b5cb; }
+        .dream-check {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--accent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* ===== LOVE METER ===== */
+        .love-meter-wrapper {
+            max-width: 500px;
+            margin: 2rem auto;
+            text-align: center;
+        }
+        .love-meter-bar {
+            height: 24px;
+            background: var(--card);
+            border-radius: 30px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(192,132,252,0.15);
+        }
+        .love-meter-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--gold));
+            border-radius: 30px;
+            transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .love-meter-text {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.4rem;
+            color: var(--accent2);
+        }
+        .love-meter-btn {
+            margin-top: 1rem;
+            padding: 0.8rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            border: none;
+            border-radius: 30px;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+        .love-meter-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(192,132,252,0.3);
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .photo {
+            aspect-ratio: 1;
+            background: var(--card);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 3rem;
+            border: 1px solid rgba(192,132,252,0.08);
+            cursor: pointer;
+        }
+        .photo:hover {
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 0 15px 40px rgba(192,132,252,0.15);
+            border-color: var(--accent);
+        }
+        .photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* ===== QUOTES ===== */
+        .quote-carousel {
+            max-width: 650px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            min-height: 200px;
+        }
+        .quote-slide {
+            display: none;
+            padding: 2.5rem;
+            background: linear-gradient(135deg, var(--soft-purple), var(--soft-pink));
+            border-radius: 20px;
+            border: 1px solid rgba(192,132,252,0.1);
+        }
+        .quote-slide.active { display: block; animation: fadeIn 0.6s ease; }
+        .quote-slide p {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.6rem;
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .quote-author {
+            font-size: 0.85rem;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+        .quote-nav {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .quote-dot {
+            width: 10px; height: 10px;
+            background: var(--card);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid rgba(192,132,252,0.2);
+        }
+        .quote-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+
+        /* ===== PROMISE CARDS ===== */
+        .promise-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .promise-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(192,132,252,0.08);
+            cursor: pointer;
+            transition: all 0.4s;
+            user-select: none;
+        }
+        .promise-card:hover {
+            transform: translateX(8px);
+            border-color: rgba(244,114,182,0.3);
+            background: var(--card-hover);
+        }
+        .promise-card.liked .promise-heart { color: var(--accent2); transform: scale(1.3); }
+        .promise-heart {
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+        .promise-text {
+            font-size: 1.05rem;
+            color: #c4b5cb;
+        }
+
+        /* ===== SONG / PLAYLIST ===== */
+        .playlist {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .song-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: var(--card);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border: 1px solid rgba(192,132,252,0.08);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .song-item:hover {
+            background: var(--card-hover);
+            transform: translateX(5px);
+            border-color: rgba(192,132,252,0.2);
+        }
+        .song-icon { font-size: 1.5rem; flex-shrink: 0; }
+        .song-info { flex: 1; }
+        .song-title { font-weight: 500; font-size: 0.95rem; }
+        .song-desc { font-size: 0.8rem; color: var(--muted); }
+
+        /* ===== COUNTDOWN ===== */
+        .countdown-wrapper {
+            text-align: center;
+            padding: 2rem;
+        }
+        .countdown-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent2);
+        }
+        .countdown-grid {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .countdown-item {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            min-width: 100px;
+            border: 1px solid rgba(244,114,182,0.15);
+        }
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent2), var(--accent3));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .countdown-unit {
+            font-size: 0.75rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--card);
+            margin-top: 3rem;
+        }
+        footer .big-heart {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        .sparkle-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .sparkle-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: sparkle 3s linear infinite;
+        }
+        @keyframes sparkle {
+            from { transform: translateX(-100%) rotate(45deg); }
+            to { transform: translateX(100%) rotate(45deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.8rem; }
+            .timeline { padding-left: 1.5rem; }
+            .item { padding: 1.2rem; margin-left: 0.8rem; }
+            .tab-btn { padding: 0.8rem 1rem; font-size: 0.8rem; }
+            .counter-item { padding: 0.8rem 1rem; min-width: 75px; }
+            .counter-number { font-size: 1.5rem; }
+            .letter { padding: 1.5rem; }
+            .quiz-card { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FLOATING HEARTS BACKGROUND -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- ===== HERO ===== -->
+    <div class="hero">
+        <div class="hero-hearts">??</div>
+        <h1>Данила & Ксюша</h1>
+        <p class="subtitle">Наша история началась <strong>20 апреля 2022 года</strong> — и с тех пор каждый день наполнен любовью, теплом и счастьем.</p>
+        <div class="love-counter">
+            <div class="counter-item">
+                <div class="counter-number" id="cnt-days">0</div>
+                <div class="counter-label">дней</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="cnt-months">0</div>
+                <div class="counter-label">месяцев</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="cnt-hours">0</div>
+                <div class="counter-label">часов</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-number" id="cnt-kisses">0</div>
+                <div class="counter-label">поцелуев</div>
+            </div>
+        </div>
+        <div class="scroll-hint" onclick="document.querySelector('.tabs-container').scrollIntoView({behavior:'smooth'})">?</div>
+    </div>
+
+    <!-- ===== TABS NAVIGATION ===== -->
+    <div class="tabs-container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="timeline">Наш путь</button>
+            <button class="tab-btn" data-tab="reasons">Почему ты</button>
+            <button class="tab-btn" data-tab="letters">Письма</button>
+            <button class="tab-btn" data-tab="promises">Обещания</button>
+            <button class="tab-btn" data-tab="dreams">Мечты</button>
+            <button class="tab-btn" data-tab="quiz">Викторина</button>
+            <button class="tab-btn" data-tab="quotes">Цитаты</button>
+            <button class="tab-btn" data-tab="playlist">Наши песни</button>
+            <button class="tab-btn" data-tab="lovemeter">Любовь-метр</button>
+            <button class="tab-btn" data-tab="anniversary">Годовщина</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- ===== TAB: TIMELINE ===== -->
+        <div class="tab-content active" id="tab-timeline">
+            <section>
+                <h2><span>Наш Путь</span></h2>
+                <p class="section-subtitle">Каждый момент с тобой — это маленькое чудо, которое я храню в сердце</p>
+                <div class="timeline">
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">20 апреля 2022</div>
+                        <h3>Начало нашей истории</h3>
+                        <p>Этот день изменил всё. Когда наши взгляды встретились, весь мир словно замер. Я ещё не знал, что этот момент станет самым важным в моей жизни. Ты улыбнулась — и моё сердце навсегда стало твоим.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Май 2022</div>
+                        <h3>Первые бабочки</h3>
+                        <p>Помнишь, как мы гуляли допоздна и не хотели прощаться? Каждое сообщение от тебя заставляло сердце биться быстрее. Я засыпал и просыпался с мыслями о тебе.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Лето 2022</div>
+                        <h3>Наше первое лето</h3>
+                        <p>Тёплые вечера, прогулки до рассвета, мороженое на двоих и бесконечные разговоры. Это было лето, когда я понял — ты и есть моё счастье.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Осень 2022</div>
+                        <h3>Вместе теплее</h3>
+                        <p>Осень стала уютной с тобой. Горячий чай на двоих, пледы и фильмы вечерами. Ты — мой самый тёплый свитер в самый холодный день.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Зима 2022-2023</div>
+                        <h3>Первый Новый год вместе</h3>
+                        <p>Загадали одно и то же желание — быть вместе всегда. Снежинки кружились, а мы стояли обнявшись, и весь мир был только наш.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">20 апреля 2023</div>
+                        <h3>Первая годовщина</h3>
+                        <p>Целый год любви, смеха, поддержки и нежности. Ты доказала мне, что настоящая любовь существует. И она стала только крепче.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Лето 2023</div>
+                        <h3>Наши приключения</h3>
+                        <p>Вместе с тобой даже обычный день превращается в приключение. Мы исследовали новые места и создавали воспоминания, которые будем хранить вечно.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Зима 2023-2024</div>
+                        <h3>Ещё одна волшебная зима</h3>
+                        <p>С каждым днём я люблю тебя всё сильнее. Наши зимние вечера — это маленький рай на земле, где есть только ты и я.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">20 апреля 2024</div>
+                        <h3>Два года вместе</h3>
+                        <p>Два года — а кажется, будто вся жизнь. И одновременно — как один прекрасный миг. Ты — мой самый лучший выбор.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">?</div>
+                        <div class="date">2025</div>
+                        <h3>Растём вместе</h3>
+                        <p>Мы стали ещё ближе, ещё роднее. Каждый день я благодарю судьбу за то, что она подарила мне тебя — самого нежного и прекрасного человека на свете.</p>
+                    </div>
+                    <div class="item">
+                        <div class="item-emoji">??</div>
+                        <div class="date">Сегодня и всегда</div>
+                        <h3>Наше будущее</h3>
+                        <p>Впереди нас ждёт целая жизнь вместе. И я хочу провести каждую её секунду рядом с тобой, моя Ксюша. Ты — мой дом, моя радость, моя вселенная.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: REASONS ===== -->
+        <div class="tab-content" id="tab-reasons">
+            <section>
+                <h2><span>Почему ты — моё всё</span></h2>
+                <p class="section-subtitle">Миллион причин, почему я люблю тебя, Ксюша</p>
+                <div class="reasons-grid">
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Твоя улыбка</h3>
+                        <p>Когда ты улыбаешься, весь мир становится ярче. Твоя улыбка — это моё лекарство от всего плохого.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Твои объятия</h3>
+                        <p>В твоих объятиях я чувствую себя дома. Нет места на земле, где бы мне было так спокойно и тепло.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Твой смех</h3>
+                        <p>Твой смех — это самая красивая мелодия, которую я когда-либо слышал. Я готов делать что угодно, лишь бы ты смеялась.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Твоя доброта</h3>
+                        <p>Ты заботишься обо всех вокруг с такой нежностью. Твоё сердце — самое большое и доброе в мире.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Твоя сила</h3>
+                        <p>Ты сильнее, чем думаешь. Ты вдохновляешь меня быть лучше каждый день. Рядом с тобой я хочу свернуть горы.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Твоя нежность</h3>
+                        <p>Ты умеешь быть такой нежной и ласковой. Каждое твоё прикосновение — это маленькое чудо.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Ночные разговоры</h3>
+                        <p>Наши разговоры до утра — это мои самые ценные моменты. С тобой можно говорить обо всём и молчать тоже.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Ты — мой дом</h3>
+                        <p>Неважно где я, если ты рядом — я дома. Ты — моё место силы, моя тихая гавань.</p>
+                    </div>
+                    <div class="reason-card">
+                        <div class="reason-emoji">??</div>
+                        <h3>Ты делаешь мир красивее</h3>
+                        <p>С тобой даже серый день становится ярким. Ты раскрашиваешь мою жизнь самыми тёплыми красками.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: LETTERS ===== -->
+        <div class="tab-content" id="tab-letters">
+            <section>
+                <h2><span>Письма любви</span></h2>
+                <p class="section-subtitle">Слова, которые идут от самого сердца</p>
+                <div class="letter-wrapper">
+                    <div class="letter">
+                        <div class="letter-from">От Данилы — для Ксюши</div>
+                        <div class="letter-text letter-hidden" id="letter1">
+                            Моя любимая Ксюша,<br><br>
+                            Ты даже не представляешь, как сильно я тебя люблю. Каждое утро я просыпаюсь с мыслью о тебе, и это делает каждый мой день особенным. Ты — первое, о чём я думаю утром, и последнее — перед сном.<br><br>
+                            Помнишь, как всё начиналось? 20 апреля 2022 года мой мир перевернулся. Я не знал тогда, что встречу человека, который станет для меня всем. Ты стала моим солнцем, моей луной, моими звёздами — всей моей вселенной.<br><br>
+                            Спасибо тебе за каждый день рядом. За твой смех, за твою заботу, за то, что ты просто есть. Ты — моё самое большое счастье и самый ценный подарок судьбы.<br><br>
+                            Я обещаю любить тебя каждый день — сегодня, завтра и всегда. Ты — моя навсегда.<br><br>
+                            Твой Данила ??
+                        </div>
+                        <button class="letter-toggle" onclick="toggleLetter('letter1', this)">Прочитать полностью...</button>
+                    </div>
+
+                    <div class="letter">
+                        <div class="letter-from">Маленькое признание</div>
+                        <div class="letter-text letter-hidden" id="letter2">
+                            Знаешь, что самое невероятное?<br><br>
+                            Из всех людей на планете мы нашли друг друга. Из миллиардов людей — ты и я. Разве это не чудо?<br><br>
+                            Каждый раз, когда ты берёшь меня за руку, я чувствую, как весь мир становится правильным. Каждый раз, когда ты смотришь мне в глаза, я теряюсь в них — и нахожу себя одновременно.<br><br>
+                            Ты научила меня, что любовь — это не только бабочки в животе. Это спокойствие, когда ты рядом. Это уверенность, что вместе мы справимся с чем угодно. Это тепло, которое не заканчивается.<br><br>
+                            Я люблю тебя больше, чем слова могут выразить. Но я буду стараться показывать это каждый день. ??
+                        </div>
+                        <button class="letter-toggle" onclick="toggleLetter('letter2', this)">Прочитать полностью...</button>
+                    </div>
+
+                    <div class="letter">
+                        <div class="letter-from">10 вещей, которые я никогда не скажу вслух</div>
+                        <div class="letter-text letter-hidden" id="letter3">
+                            1. Я скучаю по тебе через 5 минут после расставания<br>
+                            2. Мне нравится, как ты сопишь во сне<br>
+                            3. Я храню все наши переписки<br>
+                            4. Твой голос — мой любимый звук во вселенной<br>
+                            5. Я улыбаюсь как дурак, когда вижу уведомление от тебя<br>
+                            6. Мне нравится, как ты морщишь нос, когда смеёшься<br>
+                            7. Я рассказываю о тебе всем своим друзьям<br>
+                            8. Каждая песня про любовь — это про нас<br>
+                            9. Я не могу представить свою жизнь без тебя<br>
+                            10. Ты — лучшее, что случилось в моей жизни ??
+                        </div>
+                        <button class="letter-toggle" onclick="toggleLetter('letter3', this)">Прочитать полностью...</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: PROMISES ===== -->
+        <div class="tab-content" id="tab-promises">
+            <section>
+                <h2><span>Мои обещания тебе</span></h2>
+                <p class="section-subtitle">Нажми на обещание, чтобы оставить сердечко</p>
+                <div class="promise-stack">
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю любить тебя каждый день сильнее, чем вчера</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю всегда быть рядом — и в радости, и в трудные моменты</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю делать тебя счастливой каждый день</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю никогда не ложиться спать в ссоре</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю слушать тебя и слышать по-настоящему</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю защищать тебя и нашу любовь</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю говорить «люблю» каждый день</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю создать с тобой самую красивую историю любви</span>
+                    </div>
+                    <div class="promise-card" onclick="togglePromise(this)">
+                        <span class="promise-heart">??</span>
+                        <span class="promise-text">Я обещаю — ты навсегда будешь моей Ксюшей</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: DREAMS ===== -->
+        <div class="tab-content" id="tab-dreams">
+            <section>
+                <h2><span>Наши мечты</span></h2>
+                <p class="section-subtitle">Нажми на мечту, когда она сбудется</p>
+                <div class="dreams-grid">
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Встретить рассвет на море</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Побывать в Париже</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Наш уютный дом</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Завести собаку</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Увидеть северное сияние</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Поехать в путешествие без плана</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">??</div>
+                        <div class="dream-text">Сделать 1000 совместных фото</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">????????</div>
+                        <div class="dream-text">Создать большую семью</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                    <div class="dream-card" onclick="toggleDream(this)">
+                        <div class="dream-emoji">????</div>
+                        <div class="dream-text">Состариться вместе</div>
+                        <div class="dream-check">Сбылось!</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: QUIZ ===== -->
+        <div class="tab-content" id="tab-quiz">
+            <section>
+                <h2><span>Викторина о нас</span></h2>
+                <p class="section-subtitle">Проверь, как хорошо ты знаешь нашу историю!</p>
+                <div class="quiz-card" id="quizCard">
+                    <div id="quizContent">
+                        <div class="quiz-question" id="quizQuestion"></div>
+                        <div class="quiz-options" id="quizOptions"></div>
+                        <div class="quiz-progress" id="quizProgress"></div>
+                    </div>
+                    <div class="quiz-result" id="quizResult">
+                        <h3>Результат</h3>
+                        <div class="quiz-score" id="quizScore"></div>
+                        <p style="color: var(--muted); margin-top: 0.5rem;" id="quizMessage"></p>
+                        <button class="quiz-restart" onclick="startQuiz()">Пройти заново</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: QUOTES ===== -->
+        <div class="tab-content" id="tab-quotes">
+            <section>
+                <h2><span>Наши цитаты</span></h2>
+                <p class="section-subtitle">Слова о любви, которые описывают нас</p>
+                <div class="quote-carousel" id="quoteCarousel">
+                    <div class="quote-slide active">
+                        <p>«Любовь — это когда счастье другого человека важнее твоего собственного»</p>
+                        <div class="quote-author">— Данила и Ксюша</div>
+                    </div>
+                    <div class="quote-slide">
+                        <p>«Самое лучшее в нашей истории — то, что она ещё не закончилась»</p>
+                        <div class="quote-author">— О нас</div>
+                    </div>
+                    <div class="quote-slide">
+                        <p>«Ты — тот человек, с которым молчание звучит как музыка»</p>
+                        <div class="quote-author">— Данила для Ксюши</div>
+                    </div>
+                    <div class="quote-slide">
+                        <p>«В миллионах вселенных я бы выбрал тебя в каждой»</p>
+                        <div class="quote-author">— Навсегда</div>
+                    </div>
+                    <div class="quote-slide">
+                        <p>«Ты — мой любимый вид зависимости, от которой я никогда не хочу излечиться»</p>
+                        <div class="quote-author">— Честно</div>
+                    </div>
+                    <div class="quote-slide">
+                        <p>«Если бы каждый раз, когда я думаю о тебе, падала звезда — небо давно бы опустело»</p>
+                        <div class="quote-author">— С любовью</div>
+                    </div>
+                    <div class="quote-slide">
+                        <p>«Дом — это не место. Дом — это ты»</p>
+                        <div class="quote-author">— Данила</div>
+                    </div>
+                </div>
+                <div class="quote-nav" id="quoteNav"></div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: PLAYLIST ===== -->
+        <div class="tab-content" id="tab-playlist">
+            <section>
+                <h2><span>Наши песни</span></h2>
+                <p class="section-subtitle">Мелодии, которые напоминают о нас</p>
+                <div class="playlist">
+                    <div class="song-item" onclick="this.classList.toggle('playing')">
+                        <div class="song-icon">??</div>
+                        <div class="song-info">
+                            <div class="song-title">Наша первая песня</div>
+                            <div class="song-desc">Та самая, что играла при нашей встрече</div>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-icon">??</div>
+                        <div class="song-info">
+                            <div class="song-title">Песня для танца</div>
+                            <div class="song-desc">Под которую мы танцевали вдвоём на кухне</div>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-icon">??</div>
+                        <div class="song-info">
+                            <div class="song-title">Ночная песня</div>
+                            <div class="song-desc">Которую мы слушали ночью в машине</div>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-icon">??</div>
+                        <div class="song-info">
+                            <div class="song-title">Утренняя мелодия</div>
+                            <div class="song-desc">Под которую мы готовим завтрак вместе</div>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-icon">??</div>
+                        <div class="song-info">
+                            <div class="song-title">Наша дорожная песня</div>
+                            <div class="song-desc">Всегда включаем в дороге и поём вместе</div>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-icon">??</div>
+                        <div class="song-info">
+                            <div class="song-title">Песня-признание</div>
+                            <div class="song-desc">Слова которой — это всё, что я чувствую к тебе</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: LOVE METER ===== -->
+        <div class="tab-content" id="tab-lovemeter">
+            <section>
+                <h2><span>Любовь-метр</span></h2>
+                <p class="section-subtitle">Нажми кнопку и узнай, как сильно я тебя люблю!</p>
+                <div class="love-meter-wrapper">
+                    <div class="love-meter-bar">
+                        <div class="love-meter-fill" id="loveFill"></div>
+                    </div>
+                    <div class="love-meter-text" id="loveText">Нажми кнопку...</div>
+                    <br>
+                    <button class="love-meter-btn sparkle-btn" onclick="measureLove()">Измерить любовь ??</button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== TAB: ANNIVERSARY ===== -->
+        <div class="tab-content" id="tab-anniversary">
+            <section>
+                <h2><span>До следующей годовщины</span></h2>
+                <p class="section-subtitle">Обратный отсчёт до нашего особенного дня</p>
+                <div class="countdown-wrapper">
+                    <div class="countdown-title" id="anniversaryTitle">?? Годовщина</div>
+                    <div class="countdown-grid">
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="cd-days">0</div>
+                            <div class="countdown-unit">дней</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="cd-hours">0</div>
+                            <div class="countdown-unit">часов</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="cd-minutes">0</div>
+                            <div class="countdown-unit">минут</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-value" id="cd-seconds">0</div>
+                            <div class="countdown-unit">секунд</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <h2><span>Наши моменты</span></h2>
+                    <p class="section-subtitle">Фотографии, которые хранят наши воспоминания</p>
+                    <div class="gallery">
+                        <div class="photo">??</div>
+                        <div class="photo">??</div>
+                        <div class="photo">??</div>
+                        <div class="photo">??</div>
+                        <div class="photo">??</div>
+                        <div class="photo">???</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <footer>
+            <span class="big-heart">??</span>
+            <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--accent2); margin-bottom: 0.5rem;">Данила & Ксюша — навсегда</p>
+            <p>Сделано с бесконечной любовью | Вместе с <span id="start-date">20.04.2022</span></p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">© <span id="year"></span> — Наша история продолжается...</p>
+        </footer>
+    </div>
+
+    <script>
+        // ===== FLOATING HEARTS =====
+        const heartsContainer = document.getElementById('floatingHearts');
+        const heartEmojis = ['??', '??', '??', '??', '??', '??', '?', '??', '??'];
+        function createHeart() {
+            const heart = document.createElement('span');
+            heart.className = 'floating-heart';
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (8 + Math.random() * 12) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            heart.style.fontSize = (0.8 + Math.random() * 1.2) + 'rem';
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 25000);
+        }
+        for (let i = 0; i < 15; i++) setTimeout(createHeart, i * 800);
+        setInterval(createHeart, 2000);
+
+        // ===== LOVE COUNTER =====
+        const startDate = new Date(2022, 3, 20); // April 20, 2022
+        function updateCounter() {
+            const now = new Date();
+            const diff = now - startDate;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const months = (now.getFullYear() - startDate.getFullYear()) * 12 + now.getMonth() - startDate.getMonth();
+            const kisses = days * 50; // ~50 kisses per day :)
+            document.getElementById('cnt-days').textContent = days.toLocaleString();
+            document.getElementById('cnt-months').textContent = months;
+            document.getElementById('cnt-hours').textContent = hours.toLocaleString();
+            document.getElementById('cnt-kisses').textContent = kisses.toLocaleString() + '+';
+        }
+        updateCounter();
+        setInterval(updateCounter, 60000);
+
+        // ===== TABS =====
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                // Re-observe items for animation
+                document.querySelectorAll('.item, .fade-in').forEach(el => observer.observe(el));
+            });
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.item, .fade-in').forEach(el => observer.observe(el));
+
+        // ===== LETTER TOGGLE =====
+        function toggleLetter(id, btn) {
+            const el = document.getElementById(id);
+            if (el.classList.contains('letter-hidden')) {
+                el.classList.remove('letter-hidden');
+                btn.textContent = 'Свернуть';
+            } else {
+                el.classList.add('letter-hidden');
+                btn.textContent = 'Прочитать полностью...';
+            }
+        }
+
+        // ===== PROMISES =====
+        function togglePromise(card) {
+            card.classList.toggle('liked');
+            const heart = card.querySelector('.promise-heart');
+            heart.textContent = card.classList.contains('liked') ? '??' : '??';
+        }
+
+        // ===== DREAMS =====
+        function toggleDream(card) {
+            card.classList.toggle('checked');
+        }
+
+        // ===== QUIZ =====
+        const quizData = [
+            {
+                q: 'Когда мы начали встречаться?',
+                options: ['14 февраля 2022', '20 апреля 2022', '1 мая 2022', '8 марта 2022'],
+                correct: 1
+            },
+            {
+                q: 'Как зовут твою вторую половинку?',
+                options: ['Даня', 'Данила', 'Дима', 'Денис'],
+                correct: 1
+            },
+            {
+                q: 'Сколько месяцев мы уже вместе? (примерно)',
+                options: ['Около 24', 'Около 36', 'Около 48', 'Около 12'],
+                correct: 2
+            },
+            {
+                q: 'Что самое важное в отношениях?',
+                options: ['Подарки', 'Доверие и любовь', 'Деньги', 'Общие друзья'],
+                correct: 1
+            },
+            {
+                q: 'Какой наш девиз?',
+                options: ['Каждый сам за себя', 'Вместе — навсегда', 'Потом разберёмся', 'Живём один раз'],
+                correct: 1
+            },
+            {
+                q: 'Что Данила обещает Ксюше?',
+                options: ['Купить слона', 'Любить каждый день сильнее', 'Ничего', 'Всё вышеперечисленное'],
+                correct: 1
+            }
+        ];
+        let quizIndex = 0, quizScore = 0;
+        function startQuiz() {
+            quizIndex = 0; quizScore = 0;
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('quizResult').style.display = 'none';
+            showQuestion();
+        }
+        function showQuestion() {
+            if (quizIndex >= quizData.length) return showResult();
+            const q = quizData[quizIndex];
+            document.getElementById('quizQuestion').textContent = q.q;
+            document.getElementById('quizProgress').textContent = `Вопрос ${quizIndex + 1} из ${quizData.length}`;
+            const opts = document.getElementById('quizOptions');
+            opts.innerHTML = '';
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option';
+                btn.textContent = opt;
+                btn.onclick = () => answerQuiz(i, q.correct, btn);
+                opts.appendChild(btn);
+            });
+        }
+        function answerQuiz(chosen, correct, btn) {
+            const opts = document.querySelectorAll('.quiz-option');
+            opts.forEach((o, i) => {
+                o.disabled = true;
+                o.style.pointerEvents = 'none';
+                if (i === correct) o.classList.add('correct');
+                if (i === chosen && chosen !== correct) o.classList.add('wrong');
+            });
+            if (chosen === correct) quizScore++;
+            setTimeout(() => { quizIndex++; showQuestion(); }, 1200);
+        }
+        function showResult() {
+            document.getElementById('quizContent').style.display = 'none';
+            const result = document.getElementById('quizResult');
+            result.style.display = 'block';
+            document.getElementById('quizScore').textContent = quizScore + '/' + quizData.length;
+            const messages = [
+                'Нужно больше обниматься! ??',
+                'Неплохо, но мы можем лучше! ??',
+                'Хороший результат! ??',
+                'Отличный результат! ??',
+                'Почти идеально! ??',
+                'Потрясающе! ??',
+                'ИДЕАЛЬНО! Мы созданы друг для друга! ???'
+            ];
+            document.getElementById('quizMessage').textContent = messages[quizScore];
+        }
+        startQuiz();
+
+        // ===== QUOTES CAROUSEL =====
+        const slides = document.querySelectorAll('.quote-slide');
+        const navContainer = document.getElementById('quoteNav');
+        let currentSlide = 0;
+        slides.forEach((_, i) => {
+            const dot = document.createElement('span');
+            dot.className = 'quote-dot' + (i === 0 ? ' active' : '');
+            dot.onclick = () => goToSlide(i);
+            navContainer.appendChild(dot);
+        });
+        function goToSlide(idx) {
+            slides.forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.quote-dot').forEach(d => d.classList.remove('active'));
+            slides[idx].classList.add('active');
+            document.querySelectorAll('.quote-dot')[idx].classList.add('active');
+            currentSlide = idx;
+        }
+        setInterval(() => goToSlide((currentSlide + 1) % slides.length), 5000);
+
+        // ===== LOVE METER =====
+        const loveMessages = [
+            { pct: 100, text: '?? Ошибка: любовь выходит за пределы шкалы!' },
+            { pct: 100, text: '?? БЕСКОНЕЧНАЯ ЛЮБОВЬ! Шкала сломалась!' },
+            { pct: 100, text: '?? Невозможно измерить — слишком много любви!' },
+            { pct: 100, text: '? Результат: БЕЗГРАНИЧНО! Вселенная завидует!' },
+            { pct: 100, text: '?? Уровень любви: МАКСИМУМ и даже больше!' },
+        ];
+        function measureLove() {
+            const fill = document.getElementById('loveFill');
+            const text = document.getElementById('loveText');
+            fill.style.width = '0%';
+            text.textContent = 'Измеряю...';
+            setTimeout(() => {
+                const msg = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+                fill.style.width = msg.pct + '%';
+                setTimeout(() => { text.textContent = msg.text; }, 1000);
+            }, 500);
+        }
+
+        // ===== ANNIVERSARY COUNTDOWN =====
+        function updateCountdown() {
+            const now = new Date();
+            let nextAnniversary = new Date(now.getFullYear(), 3, 20); // April 20
+            if (now > nextAnniversary) nextAnniversary.setFullYear(now.getFullYear() + 1);
+            const yearsTogether = nextAnniversary.getFullYear() - 2022;
+
+            const diff = nextAnniversary - now;
+            if (diff < 0) return;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = days;
+            document.getElementById('cd-hours').textContent = hours;
+            document.getElementById('cd-minutes').textContent = minutes;
+            document.getElementById('cd-seconds').textContent = seconds;
+            document.getElementById('anniversaryTitle').textContent =
+                `?? До ${yearsTogether}-й годовщины`;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ===== YEAR =====
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ===== CLICK HEARTS EFFECT =====
+        document.addEventListener('click', (e) => {
+            const heart = document.createElement('span');
+            heart.textContent = ['??', '??', '??', '?'][Math.floor(Math.random() * 4)];
+            heart.style.cssText = `
+                position: fixed; left: ${e.clientX}px; top: ${e.clientY}px;
+                pointer-events: none; z-index: 9999; font-size: 1.5rem;
+                animation: clickHeart 1s ease-out forwards;
+            `;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1000);
+        });
+        const clickStyle = document.createElement('style');
+        clickStyle.textContent = `
+            @keyframes clickHeart {
+                0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
+                100% { opacity: 0; transform: translate(-50%, -100px) scale(1.5) rotate(20deg); }
+            }
+        `;
+        document.head.appendChild(clickStyle);
+    </script>
+</body>
+</html>
