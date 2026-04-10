@@ -2,6 +2,10 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <!-- ===== EMOJI FIX: Twemoji ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js" crossorigin="anonymous"></script>
+    <style>.emoji{height:1.2em;width:1.2em;margin:0 0.05em 0 0.1em;vertical-align:-0.2em;display:inline-block}</style>
+    <!-- ===== /EMOJI FIX ===== -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Данила & Ксюша — Наша История Любви</title>
     <style>
@@ -1512,5 +1516,14 @@
         `;
         document.head.appendChild(clickStyle);
     </script>
+    <!-- ===== EMOJI INIT ===== -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        try {
+          twemoji.parse(document.body, { folder: 'svg', ext: '.svg', attributes: () => ({ class: 'emoji' }) });
+        } catch(e) { console.log('Twemoji not loaded, using native emojis'); }
+      });
+    </script>
+    <!-- ===== /EMOJI INIT ===== -->
 </body>
 </html>
