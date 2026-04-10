@@ -27,7 +27,6 @@
         }
         .container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
         
-        /* ===== FLOATING HEARTS ===== */
         .floating-hearts {
             position: fixed;
             top: 0; left: 0;
@@ -50,7 +49,6 @@
             100% { opacity: 0; transform: translateY(-100vh) rotate(360deg) scale(1); }
         }
 
-        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -134,7 +132,6 @@
             50% { transform: translateY(12px); }
         }
 
-        /* ===== MUSIC BUTTON ===== */
         .music-btn {
             position: fixed;
             bottom: 1.5rem;
@@ -143,27 +140,25 @@
             background: linear-gradient(135deg, var(--accent), var(--accent2));
             border: none;
             border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5rem;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 20px rgba(192,132,252,0.4);
             transition: transform 0.3s, box-shadow 0.3s;
-            animation: pulse 2s infinite;
         }
         .music-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 6px 30px rgba(192,132,252,0.6);
         }
         .music-btn.playing {
-            animation: none;
             background: linear-gradient(135deg, var(--gold), var(--accent3));
+            animation: pulse 2s infinite;
         }
 
-        /* ===== TABS ===== */
         .tabs-container {
             position: sticky;
             top: 0;
@@ -206,7 +201,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* ===== SECTIONS ===== */
         section { padding: 3rem 0; }
         h2 {
             font-family: 'Cormorant Garamond', Georgia, serif;
@@ -226,7 +220,6 @@
             margin-bottom: 2.5rem;
         }
 
-        /* ===== TIMELINE ===== */
         .timeline { position: relative; padding-left: 2.5rem; }
         .timeline::before {
             content: '';
@@ -273,7 +266,6 @@
         .item p { color: #c4b5cb; }
         .item-emoji { font-size: 1.8rem; margin-bottom: 0.5rem; }
 
-        /* ===== REASONS ===== */
         .reasons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -298,7 +290,6 @@
         .reason-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
         .reason-card p { color: #c4b5cb; font-size: 0.95rem; }
 
-        /* ===== LETTERS ===== */
         .letter {
             background: linear-gradient(135deg, #1f1530, #1a1028);
             border: 1px solid rgba(244,114,182,0.15);
@@ -351,7 +342,6 @@
         }
         .letter-toggle:hover { color: var(--accent2); }
 
-        /* ===== PROMISES ===== */
         .promise-stack {
             display: flex;
             flex-direction: column;
@@ -382,7 +372,6 @@
         }
         .promise-text { font-size: 1.05rem; color: #c4b5cb; }
 
-        /* ===== DREAMS ===== */
         .dreams-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -415,7 +404,6 @@
             opacity: 0;
         }
 
-        /* ===== QUIZ - IMPROVED ===== */
         .quiz-card {
             background: var(--card);
             border-radius: 20px;
@@ -499,7 +487,6 @@
         }
         .quiz-restart:hover { transform: scale(1.05); }
 
-        /* ===== LOVE METER ===== */
         .love-meter-wrapper {
             max-width: 500px;
             margin: 2rem auto;
@@ -534,7 +521,6 @@
             cursor: pointer;
         }
 
-        /* ===== GALLERY ===== */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -556,7 +542,6 @@
         .photo:hover { transform: scale(1.05); }
         .photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 16px; }
 
-        /* ===== COUNTDOWN ===== */
         .countdown-grid {
             display: flex;
             gap: 1.5rem;
@@ -584,7 +569,6 @@
             text-transform: uppercase;
         }
 
-        /* ===== FOOTER ===== */
         footer {
             text-align: center;
             padding: 3rem 0;
@@ -599,7 +583,6 @@
             animation: pulse 2s infinite;
         }
 
-        /* ===== EMOJI FIX ===== */
         .item-emoji, .reason-emoji, .dream-emoji, .hero-hearts, .big-heart, .floating-heart {
             font-size: inherit;
         }
@@ -610,7 +593,6 @@
         .big-heart { font-size: 3rem; }
         .floating-heart { font-size: 1.2rem; }
 
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .hero h1 { font-size: 2.8rem; }
             .timeline { padding-left: 1.5rem; }
@@ -618,20 +600,18 @@
             .quiz-question { font-size: 1.5rem; }
             .quiz-option { font-size: 1rem; }
             .quiz-score { font-size: 4rem; }
+            .music-btn { width: 50px; height: 50px; font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
-    <!-- FLOATING HEARTS -->
     <div class="floating-hearts" id="floatingHearts"></div>
 
-    <!-- MUSIC BUTTON -->
     <button class="music-btn" id="musicBtn" title="Включить музыку">&#127926;</button>
     <audio id="bgMusic" loop>
-        <source src="https://cdn.pixabay.com/audio/2022/03/10/audio_5c4a8c6c3c.mp3" type="audio/mpeg">
+        <source src="https://cdn.pixabay.com/audio/2022/05/27/audio_174e2b5b6f.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- ===== HERO ===== -->
     <div class="hero">
         <div class="hero-hearts">&#128149;&#128150;&#128151;</div>
         <h1>Данила & Ксюша</h1>
@@ -657,7 +637,6 @@
         <div class="scroll-hint" onclick="document.querySelector('.tabs-container').scrollIntoView({behavior:'smooth'})">&#11015;</div>
     </div>
 
-    <!-- ===== TABS ===== -->
     <div class="tabs-container">
         <div class="tabs">
             <button class="tab-btn active" data-tab="timeline">Наш путь</button>
@@ -671,7 +650,6 @@
     </div>
 
     <div class="container">
-        <!-- ===== TAB: TIMELINE ===== -->
         <div class="tab-content active" id="tab-timeline">
             <section>
                 <h2><span>Наш Путь</span></h2>
@@ -747,7 +725,6 @@
             </section>
         </div>
 
-        <!-- ===== TAB: REASONS ===== -->
         <div class="tab-content" id="tab-reasons">
             <section>
                 <h2><span>Почему ты - моё всё</span></h2>
@@ -807,7 +784,6 @@
             </section>
         </div>
 
-        <!-- ===== TAB: LETTERS ===== -->
         <div class="tab-content" id="tab-letters">
             <section>
                 <h2><span>Письма любви</span></h2>
@@ -856,7 +832,6 @@
             </section>
         </div>
 
-        <!-- ===== TAB: PROMISES ===== -->
         <div class="tab-content" id="tab-promises">
             <section>
                 <h2><span>Мои обещания тебе</span></h2>
@@ -902,7 +877,6 @@
             </section>
         </div>
 
-        <!-- ===== TAB: DREAMS ===== -->
         <div class="tab-content" id="tab-dreams">
             <section>
                 <h2><span>Наши мечты</span></h2>
@@ -957,7 +931,6 @@
             </section>
         </div>
 
-        <!-- ===== TAB: QUIZ - IMPROVED ===== -->
         <div class="tab-content" id="tab-quiz">
             <section>
                 <h2><span>Викторина о нас</span></h2>
@@ -978,7 +951,6 @@
             </section>
         </div>
 
-        <!-- ===== TAB: ANNIVERSARY ===== -->
         <div class="tab-content" id="tab-anniversary">
             <section>
                 <h2><span>До следующей годовщины</span></h2>
@@ -1019,7 +991,6 @@
             </section>
         </div>
 
-        <!-- ===== FOOTER ===== -->
         <footer>
             <span class="big-heart">&#128149;</span>
             <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--accent2); margin-bottom: 0.5rem;">Данила & Ксюша - навсегда</p>
@@ -1029,24 +1000,94 @@
     </div>
 
     <script>
-        // ===== SOUND EFFECTS =====
+        // ===== ROMANTIC SOUND EFFECTS =====
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playSound(freq, duration, type = 'sine', volume = 0.1) {
+        
+        // Romantic chime sounds
+        function playRomanticChime() {
+            const notes = [523.25, 659.25, 783.99]; // C major chord
+            notes.forEach((freq, i) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.5);
+                }, i * 100);
+            });
+        }
+        
+        // Soft click sound (romantic bell)
+        function playSoftClick() {
             const osc = audioCtx.createOscillator();
             const gain = audioCtx.createGain();
             osc.connect(gain);
             gain.connect(audioCtx.destination);
-            osc.frequency.value = freq;
-            osc.type = type;
-            gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+            osc.frequency.value = 880;
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
             osc.start();
-            osc.stop(audioCtx.currentTime + duration);
+            osc.stop(audioCtx.currentTime + 0.15);
         }
-        function playClick() { playSound(800, 0.1, 'sine', 0.05); }
-        function playCorrect() { playSound(600, 0.15, 'sine', 0.1); setTimeout(() => playSound(800, 0.15, 'sine', 0.1), 100); }
-        function playWrong() { playSound(200, 0.2, 'square', 0.08); }
-        function playHeart() { playSound(500, 0.2, 'sine', 0.07); }
+        
+        // Correct answer - happy celebratory sound
+        function playCorrectAnswer() {
+            const notes = [523.25, 659.25, 783.99, 1046.50]; // C major arpeggio
+            notes.forEach((freq, i) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                }, i * 80);
+            });
+        }
+        
+        // Wrong answer - soft descending sound
+        function playWrongAnswer() {
+            const notes = [440, 392, 349]; // Descending minor
+            notes.forEach((freq, i) => {
+                setTimeout(() => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                }, i * 120);
+            });
+        }
+        
+        // Heart sound - romantic swell
+        function playHeartSound() {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.3);
+            osc.type = 'sine';
+            gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+            osc.start();
+            osc.stop(audioCtx.currentTime + 0.4);
+        }
 
         // ===== FLOATING HEARTS =====
         const heartsContainer = document.getElementById('floatingHearts');
@@ -1086,19 +1127,24 @@
         const musicBtn = document.getElementById('musicBtn');
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
-        musicBtn.addEventListener('click', () => {
-            playClick();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+        musicBtn.addEventListener('click', async () => {
+            playSoftClick();
+            if (audioCtx.state === 'suspended') await audioCtx.resume();
             if (isPlaying) {
                 bgMusic.pause();
                 musicBtn.classList.remove('playing');
                 musicBtn.innerHTML = '&#127926;';
                 isPlaying = false;
             } else {
-                bgMusic.play().catch(e => console.log('Autoplay blocked:', e));
-                musicBtn.classList.add('playing');
-                musicBtn.innerHTML = '&#128264;';
-                isPlaying = true;
+                try {
+                    await bgMusic.play();
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '&#128264;';
+                    isPlaying = true;
+                } catch(e) {
+                    console.log('Autoplay blocked:', e);
+                    alert('Нажмите кнопку ещё раз, чтобы включить музыку');
+                }
             }
         });
 
@@ -1107,7 +1153,7 @@
         const tabContents = document.querySelectorAll('.tab-content');
         tabBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                playClick();
+                playSoftClick();
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
                 btn.classList.add('active');
@@ -1126,7 +1172,7 @@
 
         // ===== LETTER TOGGLE =====
         function toggleLetter(id, btn) {
-            playClick();
+            playSoftClick();
             const el = document.getElementById(id);
             if (el.classList.contains('letter-hidden')) {
                 el.classList.remove('letter-hidden');
@@ -1139,7 +1185,7 @@
 
         // ===== PROMISES =====
         function togglePromise(card) {
-            playHeart();
+            playHeartSound();
             card.classList.toggle('liked');
             const heart = card.querySelector('.promise-heart');
             heart.innerHTML = card.classList.contains('liked') ? '&#128149;' : '&#128151;';
@@ -1147,11 +1193,11 @@
 
         // ===== DREAMS =====
         function toggleDream(card) {
-            playClick();
+            playSoftClick();
             card.classList.toggle('checked');
         }
 
-        // ===== QUIZ - ENHANCED =====
+        // ===== QUIZ - FIXED =====
         const quizData = [
             { q: 'Когда мы начали встречаться?', options: ['14 февраля 2022', '20 апреля 2022', '1 мая 2022', '8 марта 2022'], correct: 1 },
             { q: 'Как зовут твою вторую половинку?', options: ['Даня', 'Данила', 'Дима', 'Денис'], correct: 1 },
@@ -1193,15 +1239,15 @@
                 o.style.pointerEvents = 'none';
                 if (i === correct) {
                     o.classList.add('correct');
-                    playCorrect();
+                    playCorrectAnswer();
                 }
                 if (i === chosen && chosen !== correct) {
                     o.classList.add('wrong');
-                    playWrong();
+                    playWrongAnswer();
                 }
             });
             if (chosen === correct) quizScore++;
-            setTimeout(() => { quizIndex++; showQuestion(); }, 1200);
+            setTimeout(() => { quizIndex++; showQuestion(); }, 1500);
         }
         function showResult() {
             document.getElementById('quizContent').style.display = 'none';
@@ -1221,7 +1267,7 @@
                 'Божественный результат! &#127775;'
             ];
             document.getElementById('quizMessage').textContent = messages[quizScore] || messages[messages.length - 1];
-            playCorrect();
+            playCorrectAnswer();
         }
         startQuiz();
 
@@ -1234,7 +1280,7 @@
             { pct: 100, text: '&#128147; Уровень любви: МАКСИМУМ и даже больше!' },
         ];
         function measureLove() {
-            playClick();
+            playSoftClick();
             const fill = document.getElementById('loveFill');
             const text = document.getElementById('loveText');
             fill.style.width = '0%';
@@ -1242,7 +1288,7 @@
             setTimeout(() => {
                 const msg = loveMessages[Math.floor(Math.random() * loveMessages.length)];
                 fill.style.width = msg.pct + '%';
-                setTimeout(() => { text.textContent = msg.text; playHeart(); }, 1000);
+                setTimeout(() => { text.textContent = msg.text; playHeartSound(); }, 1000);
             }, 500);
         }
 
@@ -1287,7 +1333,7 @@
         // ===== PHOTO CLICK =====
         document.querySelectorAll('.photo').forEach(photo => {
             photo.addEventListener('click', () => {
-                playClick();
+                playSoftClick();
                 photo.style.transform = 'scale(1.1)';
                 setTimeout(() => photo.style.transform = '', 200);
             });
